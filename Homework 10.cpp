@@ -1,14 +1,14 @@
 /*
-Ýlk örnek: a - b + c * 2 (iþlem önceliklerine göre AST: + kök, sol - alt aðaç, sað * alt aðaç).
-Ýkinci örnek: (a + b) * (c - d).
+Ãlk Ã¶rnek: a - b + c * 2 (iÃ¾lem Ã¶nceliklerine gÃ¶re AST: + kÃ¶k, sol - alt aÃ°aÃ§, saÃ° * alt aÃ°aÃ§).
+Ãkinci Ã¶rnek: (a + b) * (c - d).
 
-Node yapýsý: operatör, deðiþken veya sayý düðümlerini tutuyor.
+Node yapÃ½sÃ½: operatÃ¶r, deÃ°iÃ¾ken veya sayÃ½ dÃ¼Ã°Ã¼mlerini tutuyor.
 
-new_op, new_num, new_var: aðaç düðümleri yaratýyor.
+new_op, new_num, new_var: aÃ°aÃ§ dÃ¼Ã°Ã¼mleri yaratÃ½yor.
 
-print_ast: aðaç yapýsýný saða döndürülmüþ þekilde yazdýrýyor (yukarýdaki slaytta gördüðümüz gibi basamaklý görünüm saðlar).
+print_ast: aÃ°aÃ§ yapÃ½sÃ½nÃ½ saÃ°a dÃ¶ndÃ¼rÃ¼lmÃ¼Ã¾ Ã¾ekilde yazdÃ½rÃ½yor 
 
-eval: deðiþkenlere verdiðin deðerlerle ifadeyi hesaplýyor.
+eval: deÃ°iÃ¾kenlere verdiÃ°in deÃ°erlerle ifadeyi hesaplÃ½yor.
 
 
 */
@@ -25,7 +25,7 @@ typedef struct Node {
     struct Node *left, *right;
 } Node;
 
-/* --- Node oluþturucular --- */
+/* --- Node oluÃ¾turucular --- */
 Node* new_op(char op, Node* l, Node* r){
     Node* n = malloc(sizeof(Node));
     n->type = NODE_OP; n->op = op; n->left = l; n->right = r;
@@ -42,7 +42,7 @@ Node* new_var(char name){
     return n;
 }
 
-/* --- AST'i "rotated" (saða döndürülmüþ) þekilde yazdýrma --- */
+/* --- AST'i "rotated" (saÃ°a dÃ¶ndÃ¼rÃ¼lmÃ¼Ã¾) Ã¾ekilde yazdÃ½rma --- */
 void print_ast(Node* root, int level){
     if(!root) return;
     print_ast(root->right, level + 1);
@@ -59,7 +59,7 @@ void print_ast(Node* root, int level){
     print_ast(root->left, level + 1);
 }
 
-/* --- Basit deðerlendirme: deðiþkenlere deðer ver --- */
+/* --- Basit deÃ°erlendirme: deÃ°iÃ¾kenlere deÃ°er ver --- */
 int eval(Node* root, int vars[26]){
     if(root->type == NODE_NUM) return root->value;
     if(root->type == NODE_VAR) return vars[root->var - 'a'];
@@ -74,7 +74,7 @@ int eval(Node* root, int vars[26]){
     return 0;
 }
 
-/* --- Belleði temizle --- */
+/* --- BelleÃ°i temizle --- */
 void free_ast(Node* n){
     if(!n) return;
     free_ast(n->left);
@@ -82,10 +82,10 @@ void free_ast(Node* n){
     free(n);
 }
 
-/* --- Örnekler --- */
+/* --- Ã–rnekler --- */
 int main(void){
-    /* Örnek 1: a - b + c * 2
-       AST (önceliklere göre):        +
+    /* Ã–rnek 1: a - b + c * 2
+       AST (Ã¶nceliklere gÃ¶re):        +
                                      / \
                                    -     *
                                   / \   / \
@@ -105,7 +105,7 @@ int main(void){
     vars['c' - 'a'] = 4;
     printf("Evaluated (a=10,b=3,c=4): %d\n\n", eval(ex1, vars));
 
-    /* Örnek 2: (a + b) * (c - d)
+    /* Ã–rnek 2: (a + b) * (c - d)
        AST:
                   *
                  / \
@@ -131,5 +131,6 @@ int main(void){
     free_ast(ex2);
     return 0;
 }
+
 
 
